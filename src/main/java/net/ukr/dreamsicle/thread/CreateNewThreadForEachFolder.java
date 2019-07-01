@@ -1,6 +1,10 @@
-package net.ukr.dreamsicle;
+package net.ukr.dreamsicle.thread;
+
+import net.ukr.dreamsicle.App;
+import net.ukr.dreamsicle.outData.OutData;
 
 import java.io.File;
+import java.util.Arrays;
 
 
 /**
@@ -8,9 +12,11 @@ import java.io.File;
  * Подсчет количества файлов выполняется с помощью рекурсивного метода. В случае если найден с файл - он будет подсчитан,
  * в случае с папкой - метод вызовет сам себя и передаст в качестве параметра название поддирректории.
  */
-class CreateNewThreadForEachFolder implements Runnable {
+public class CreateNewThreadForEachFolder extends Thread implements CountFolder {
+
     private String pathFolderForCounting;
     private String fileToWriteData;
+    //
     private int numberOfFilesInTheFolder;
 
     /**
@@ -36,13 +42,16 @@ class CreateNewThreadForEachFolder implements Runnable {
      *
      * @param pathFolderForCounting список файлов в подпапке
      */
-    private void iterateThroughTheContentsOfFolderBySpecifiedPath(File[] pathFolderForCounting) {
-        for (File file : pathFolderForCounting) {
-            if (file.isDirectory()) {
-                iterateThroughTheContentsOfFolderBySpecifiedPath(file.listFiles());
-            } else {
-                numberOfFilesInTheFolder++;
-            }
+    @Override
+    public void iterateThroughTheContentsOfFolderBySpecifiedPath(File... pathFolderForCounting) {
+        if (!Thread.currentThread().isInterrupted()) {
+            Arrays.stream(pathFolderForCounting).forEach(file -> {
+                if (file.isDirectory()) {
+                    iterateThroughTheContentsOfFolderBySpecifiedPath(file.listFiles());
+                } else {
+                    numberOfFilesInTheFolder++;
+                }
+            });
         }
     }
 }

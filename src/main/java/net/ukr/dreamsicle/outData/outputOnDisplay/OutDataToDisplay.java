@@ -1,6 +1,7 @@
 package net.ukr.dreamsicle.outData.outputOnDisplay;
 
 import net.ukr.dreamsicle.App;
+import net.ukr.dreamsicle.outData.DisplayData;
 
 /**
  *

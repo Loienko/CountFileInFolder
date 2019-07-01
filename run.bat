@@ -1,0 +1,1 @@
+java -cp bin src.main.java.net.ukr.dreamsicle.App D://test//res//pathForCount.txt D://test//res//res.txt

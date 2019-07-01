@@ -1,8 +1,11 @@
-package net.ukr.dreamsicle;
+package net.ukr.dreamsicle.outData;
 
 import net.ukr.dreamsicle.outData.outputOnDisplay.OutDataToDisplay;
 import net.ukr.dreamsicle.outData.writeToFile.OutDataToFile;
 
+/**
+ *
+ */
 public class OutData {
     private String fileToWriteData;
     private String pathFolderForCounting;

@@ -1,0 +1,1 @@
+javac -verbose -cp . -sourcepath src -d bin src/main/java/net/ukr/dreamsicle/App.java
