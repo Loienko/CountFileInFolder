@@ -4,7 +4,7 @@ import net.ukr.dreamsicle.outData.outputOnDisplay.OutDataToDisplay;
 import net.ukr.dreamsicle.outData.writeToFile.OutDataToFile;
 
 /**
- *
+ * Класс адптер, служащий для вывода данных на экран и записи данных в файл
  */
 public class OutData {
     private String fileToWriteData;

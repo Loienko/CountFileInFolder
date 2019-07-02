@@ -12,9 +12,14 @@ import java.util.logging.Logger;
 
 
 /**
- *
+ * JNativeHook - библиотека, обеспечивающая глобальное прослушивание клавиатуры и мыши для Java.
+ * Позволяеи прослушивать нажатие клавиатурв или движения мыши, которые в противном случае были
+ * бы невозможны при использовании чистой Java. Чтобы выполнить эту задачу, JNativeHook использует
+ * зависимый от платформы собственный код через собственный интерфейс Java для создания низкоуровневых
+ * общесистемных хуков и доставки этих событий в приложение {@Link App}
  */
 public class KeyListenerForPushEscapeButton implements NativeKeyListener {
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(KeyListenerForPushEscapeButton.class);
 
     public void getKey() {
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -23,18 +28,17 @@ public class KeyListenerForPushEscapeButton implements NativeKeyListener {
         try {
             GlobalScreen.registerNativeHook();
         } catch (NativeHookException ex) {
-            System.err.println("There was a problem registering the native hook.");
-            System.err.println(ex.getMessage());
+            LOGGER.info("There was a problem registering the native hook.", ex);
             System.exit(1);
         }
         GlobalScreen.addNativeKeyListener(new KeyListenerForPushEscapeButton());
     }
 
-    public void getUnregisterNativeHook(){
+    public void getUnregisterNativeHook() {
         try {
             GlobalScreen.unregisterNativeHook();
         } catch (NativeHookException e) {
-            e.printStackTrace();
+            LOGGER.info("Problem with unregisterNativeHook", e);
         }
     }
 
@@ -45,7 +49,7 @@ public class KeyListenerForPushEscapeButton implements NativeKeyListener {
                 GlobalScreen.unregisterNativeHook();
                 App.isRunning = false;
             } catch (NativeHookException ex) {
-                ex.printStackTrace();
+                LOGGER.info("Problem with unregisterNativeHook", ex);
             }
         }
     }
